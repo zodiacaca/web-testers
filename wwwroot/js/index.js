@@ -3,19 +3,39 @@
 
 // Write your JavaScript code.
 
+const devices = ['mouse', 'kb', 'gp']
 // data
 const data = {
   mouse: {
-    count: 0,
+    samples: [],
     timeStamp: performance.now()
   },
   kb: {
-    count: 0,
+    samples: [],
     timeStamp: performance.now()
   },
   gp: {
-    count: 0,
+    samples: [],
     timeStamp: performance.now()
+  }
+}
+const charts = {
+  max: 200,
+  range: 20,
+  mouse: {
+    drawCount: 0,
+    canvas: document.querySelector('#chart-mouse'),
+    context: document.querySelector('#chart-mouse').getContext('2d')
+  },
+  kb: {
+    drawCount: 0,
+    canvas: document.querySelector('#chart-keyboard'),
+    context: document.querySelector('#chart-keyboard').getContext('2d')
+  },
+  gp: {
+    drawCount: 0,
+    canvas: document.querySelector('#chart-gamepad'),
+    context: document.querySelector('#chart-gamepad').getContext('2d')
   }
 }
 const logs = {
@@ -23,45 +43,59 @@ const logs = {
   kb: document.querySelector('#screen-log-keyboard'),
   gp: document.querySelector('#screen-log-gamepad')
 }
-const charts = {
-  mouse: new JSC.Chart("chart-mouse", {}),
-  kb: new JSC.Chart("chart-keyboard", {})
+
+const drawChart = (device) => {
+  const canvas = charts[device].canvas
+  const ctx = charts[device].context
+
+  ctx.clearRect(0, 0, canvas.width, canvas.height)
+  charts[device].drawCount = 0
+
+  const max = charts.max
+  const range = charts.range
+  const unit = canvas.height / range
+  const offset = (data[device].samples.length - max) > 0 ? data[device].samples.length - max + 1 : 1
+
+  ctx.beginPath()
+  ctx.moveTo(0, unit * range / 2 - 0.5)
+  ctx.lineTo(canvas.width, unit * range / 2 - 0.5)
+  ctx.lineWidth = 1
+  ctx.strokeStyle = `rgb(200, 200, 200)`
+  ctx.stroke()
+
+  data[device].samples.forEach((ntrvl) => {
+    charts[device].drawCount++
+    const pos = charts[device].drawCount - offset
+    if (pos >= 0) {
+      ntrvl = ntrvl * unit
+      ctx.fillStyle = `rgb(150, 150, 150)`
+      ctx.fillRect(2 + pos * 4, 200 - ntrvl, 2, ntrvl)
+    }
+  })
 }
 
+function draw(timeStamp) {
+  devices.forEach((dvc) => {
+    drawChart(dvc)
+  })
+
+  window.requestAnimationFrame(draw)
+}
+window.requestAnimationFrame(draw)
+
 // mouse
-charts.mouse.options({
-  series: [{
-    name: "Intervals"
-  }],
-  yAxis: {
-    scale: {
-      range: [0, 10]
-    }
-  }
-})
 document.addEventListener('mousemove', function(e) {
-  data.mouse.count += 1
   const interval = performance.now() - data.mouse.timeStamp
+  data.mouse.samples.push(interval)
   logs.mouse.innerText = `
     Screen X/Y: ${e.screenX}, ${e.screenY}
     Client X/Y: ${e.clientX}, ${e.clientY}
     Last interval: ${interval}`
-  charts.mouse.series(0).points.add({x: data.mouse.count, y: interval})
 
   data.mouse.timeStamp = performance.now()
 })
 
 //keyboard
-charts.kb.options({
-  series: [{
-    name: "Durations"
-  }],
-  yAxis: {
-    scale: {
-      range: [0, 10]
-    }
-  }
-})
 document.addEventListener('keydown', function(e) {
   logs.kb.innerText = `
     Last interval: ${performance.now() - data.kb.timeStamp}`
@@ -70,19 +104,35 @@ document.addEventListener('keydown', function(e) {
 })
 
 document.addEventListener('keyup', function(e) {
-  counts.kb += 1
   const duration = performance.now() - data.kb.timeStamp
   logs.kb.innerText = `
     Last duration: ${duration / 8}`
-  charts.kb.series(0).points.add({x: counts.kb, y: duration / 8})
 
   data.kb.timeStamp = performance.now()
 })
 
 //gamepad
+let gp = null
 window.addEventListener("gamepadconnected", (e) => {
   logs.gp.innerText = `
     ${e.gamepad.id}`
 
-  data.gp.timeStamp = e.gamepad.timestamp
+  gp = navigator.getGamepads()[e.gamepad.index]
 })
+
+
+// animation.addEventListener('animationstart', () => {
+
+// })
+
+// animation.addEventListener('animationiteration', () => {
+
+// })
+
+// animation.addEventListener('animationend', () => {
+
+// })
+
+// animation.addEventListener('animationcancel', () => {
+
+// })
