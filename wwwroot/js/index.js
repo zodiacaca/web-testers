@@ -24,16 +24,22 @@ const charts = {
   range: 20,
   mouse: {
     drawCount: 0,
+    button: document.querySelector('#button-mouse'),
+    active: false,
     canvas: document.querySelector('#chart-mouse'),
     context: document.querySelector('#chart-mouse').getContext('2d')
   },
   kb: {
     drawCount: 0,
+    button: document.querySelector('#button-keyboard'),
+    active: false,
     canvas: document.querySelector('#chart-keyboard'),
     context: document.querySelector('#chart-keyboard').getContext('2d')
   },
   gp: {
     drawCount: 0,
+    button: document.querySelector('#button-gamepad'),
+    active: false,
     canvas: document.querySelector('#chart-gamepad'),
     context: document.querySelector('#chart-gamepad').getContext('2d')
   }
@@ -84,15 +90,28 @@ function draw(timeStamp) {
 window.requestAnimationFrame(draw)
 
 // mouse
+charts.mouse.button.addEventListener('click', function(e) {
+  charts.mouse.button.classList.toggle('active')
+  charts.mouse.active = charts.mouse.button.classList.contains('active')
+  if (charts.mouse.active) {
+    charts.mouse.button.textContent = "Stop"
+  } else {
+    charts.mouse.button.textContent = "Start"
+  }
+})
 document.addEventListener('mousemove', function(e) {
-  const interval = performance.now() - data.mouse.timeStamp
-  data.mouse.samples.push(interval)
-  logs.mouse.innerText = `
-    Screen X/Y: ${e.screenX}, ${e.screenY}
-    Client X/Y: ${e.clientX}, ${e.clientY}
-    Last interval: ${interval}`
+  if (charts.mouse.active) {
+    const interval = performance.now() - data.mouse.timeStamp
+    if (interval < 2000) {
+      data.mouse.samples.push(interval)
+    }
+    logs.mouse.innerText = `
+      Screen X/Y: ${e.screenX}, ${e.screenY}
+      Client X/Y: ${e.clientX}, ${e.clientY}
+      Last interval: ${interval}`
 
-  data.mouse.timeStamp = performance.now()
+    data.mouse.timeStamp = performance.now()
+  }
 })
 
 //keyboard
@@ -105,9 +124,11 @@ document.addEventListener('mousemove', function(e) {
 
 document.addEventListener('keyup', function(e) {
   const interval = performance.now() - data.kb.timeStamp
-  data.kb.samples.push(interval)
+  if (interval < 2000) {
+    data.kb.samples.push(interval)
+  }
   logs.kb.innerText = `
-    Last interval: ${interval / 8}`
+    Last interval: ${interval}`
 
   data.kb.timeStamp = performance.now()
 })

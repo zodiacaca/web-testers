@@ -1,0 +1,49 @@
+
+body {
+  margin: 0;
+  width: 100%;
+  height: 100vh;
+  overflow-x: hidden;
+}
+
+#sider {
+  position: fixed;
+  width: 18%;
+  height: 100%;
+}
+
+.nav-main {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-color: rgb(240, 240, 240);
+}
+
+.nav-main-side {
+  position: absolute;
+  width: 4rem;
+  height: 100%;
+  background: linear-gradient(180deg, rgba(44,63,167,1) 0%, rgba(26,104,150,1) 35%, rgba(0,134,255,1) 100%);
+}
+
+.container {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  color: rgb(60, 60, 60);
+  position: relative;
+  left: 18%;
+  padding: 3rem;
+  width: 100%;
+  min-height: 100vh;
+  box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
+}
+
+button {
+  width: 5rem;
+  height: 2rem;
+}
+
+canvas {
+  display: block;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
