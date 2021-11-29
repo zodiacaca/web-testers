@@ -44,6 +44,17 @@ const charts = {
     context: document.querySelector('#chart-gamepad').getContext('2d')
   }
 }
+devices.forEach((dvc) => {
+  charts[dvc].button.addEventListener('click', function(e) {
+    charts[dvc].button.classList.toggle('active')
+    charts[dvc].active = charts[dvc].button.classList.contains('active')
+    if (charts[dvc].active) {
+      charts[dvc].button.textContent = "Stop"
+    } else {
+      charts[dvc].button.textContent = "Start"
+    }
+  })
+})
 const logs = {
   mouse: document.querySelector('#screen-log-mouse'),
   kb: document.querySelector('#screen-log-keyboard'),
@@ -90,15 +101,6 @@ function draw(timeStamp) {
 window.requestAnimationFrame(draw)
 
 // mouse
-charts.mouse.button.addEventListener('click', function(e) {
-  charts.mouse.button.classList.toggle('active')
-  charts.mouse.active = charts.mouse.button.classList.contains('active')
-  if (charts.mouse.active) {
-    charts.mouse.button.textContent = "Stop"
-  } else {
-    charts.mouse.button.textContent = "Start"
-  }
-})
 document.addEventListener('mousemove', function(e) {
   if (charts.mouse.active) {
     const interval = performance.now() - data.mouse.timeStamp
@@ -123,23 +125,27 @@ document.addEventListener('mousemove', function(e) {
 // })
 
 document.addEventListener('keyup', function(e) {
-  const interval = performance.now() - data.kb.timeStamp
-  if (interval < 2000) {
-    data.kb.samples.push(interval)
-  }
-  logs.kb.innerText = `
-    Last interval: ${interval}`
+  if (charts.kb.active) {
+    const interval = performance.now() - data.kb.timeStamp
+    if (interval < 2000) {
+      data.kb.samples.push(interval)
+    }
+    logs.kb.innerText = `
+      Last interval: ${interval}`
 
-  data.kb.timeStamp = performance.now()
+    data.kb.timeStamp = performance.now()
+  }
 })
 
 //gamepad
 let gp = null
 window.addEventListener("gamepadconnected", (e) => {
-  logs.gp.innerText = `
-    ${e.gamepad.id}`
+  if (charts.gp.active) {
+    logs.gp.innerText = `
+      ${e.gamepad.id}`
 
-  gp = navigator.getGamepads()[e.gamepad.index]
+    gp = navigator.getGamepads()[e.gamepad.index]
+  }
 })
 
 
