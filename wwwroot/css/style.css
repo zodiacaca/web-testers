@@ -24,17 +24,50 @@ body {
   width: 4rem;
   height: 100%;
   background: linear-gradient(180deg, rgba(44,63,167,1) 0%, rgba(26,104,150,1) 35%, rgba(0,134,255,1) 100%);
+  box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.5);
+}
+
+.nav-main-items {
+  font-family: Geneva, Tahoma, sans-serif;
+  font-size: 1.2rem;
+  font-weight: 100;
+  color: rgb(60, 60, 60);
+  position: relative;
+  top: 60%;
+  margin-left: 4rem;
+}
+
+.nav-main-item {
+  display: block;
+  position: relative;
+  margin-top: -1px;
+  padding: 1rem 2.5rem;
+  border-top: 1px solid gray;
+  border-bottom: 1px solid gray;
 }
 
 .container {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
-  color: rgb(60, 60, 60);
+  color: rgb(80, 80, 80);
   position: relative;
   left: 18%;
   padding: 3rem;
   width: 100%;
   min-height: 100vh;
   box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
+}
+
+.screen-log-area {
+  margin-bottom: 1rem;
+  padding: 0rem 1rem;
+  width: 30%;
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 0.5rem;
+}
+
+.screen-log {
+  margin: 0;
+  padding-bottom: 1rem;
 }
 
 button {
