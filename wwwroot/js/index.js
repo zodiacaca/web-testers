@@ -74,8 +74,22 @@ const drawChart = (device) => {
   const offset = (data[device].samples.length - max) > 0 ? data[device].samples.length - max + 1 : 1
 
   ctx.beginPath()
+  ctx.moveTo(0, canvas.height)
+  ctx.lineTo(canvas.width, canvas.height)
+  ctx.lineWidth = 1
+  ctx.strokeStyle = `rgb(200, 200, 200)`
+  ctx.stroke()
+
+  ctx.beginPath()
   ctx.moveTo(0, unit * range / 2 - 0.5)
   ctx.lineTo(canvas.width, unit * range / 2 - 0.5)
+  ctx.lineWidth = 1
+  ctx.strokeStyle = `rgb(230, 200, 200)`
+  ctx.stroke()
+
+  ctx.beginPath()
+  ctx.moveTo(0, 0)
+  ctx.lineTo(canvas.width, 0)
   ctx.lineWidth = 1
   ctx.strokeStyle = `rgb(200, 200, 200)`
   ctx.stroke()
