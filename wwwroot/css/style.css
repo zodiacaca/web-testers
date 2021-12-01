@@ -19,14 +19,6 @@ body {
   background-color: rgb(240, 240, 240);
 }
 
-.nav-main-side {
-  position: absolute;
-  width: 4rem;
-  height: 100%;
-  background: linear-gradient(180deg, rgba(44,63,167,1) 0%, rgba(26,104,150,1) 35%, rgba(0,134,255,1) 100%);
-  box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.5);
-}
-
 .nav-main-items {
   font-family: Geneva, Tahoma, sans-serif;
   font-size: 1.2rem;
@@ -38,6 +30,7 @@ body {
 }
 
 .nav-main-item {
+  cursor: default;
   display: block;
   position: relative;
   margin-top: -1px;
