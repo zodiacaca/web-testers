@@ -8,14 +8,15 @@ body {
 
 #sider {
   position: fixed;
-  width: 18%;
+  width: 16%;
   height: 100%;
+  border-left: 0.125rem solid hsl(0, 0%, 50%);
 }
 
 .nav-main {
   position: relative;
   width: 100%;
-  height: 100%;
+  height: calc(100% - 1px);
   background-color: hsl(0, 0%, 15%);
 }
 
@@ -27,6 +28,7 @@ body {
   position: relative;
   top: 60%;
   margin-left: 4rem;
+  padding-top: 1px;
 }
 
 .nav-main-item {
@@ -43,12 +45,13 @@ body {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   color: hsl(0, 0%, 30%);
   position: relative;
-  left: 18%;
+  left: 16%;
+  margin-left: 0.25rem;
   padding: 3rem;
   width: 100%;
   min-height: 100vh;
   background-color: hsl(0, 0%, 90%);
-  border-left: medium solid hsl(0, 0%, 50%);
+  border-left: 0.125rem solid hsl(0, 0%, 50%);
 }
 
 .screen-log-area {
