@@ -77,21 +77,25 @@ const drawChart = (device) => {
   ctx.moveTo(0, canvas.height)
   ctx.lineTo(canvas.width, canvas.height)
   ctx.lineWidth = 1
-  ctx.strokeStyle = `rgb(200, 200, 200)`
+  ctx.strokeStyle = `hsl(0, 0%, 75%)`
   ctx.stroke()
 
   ctx.beginPath()
   ctx.moveTo(0, unit * range / 2 - 0.5)
   ctx.lineTo(canvas.width, unit * range / 2 - 0.5)
   ctx.lineWidth = 1
-  ctx.strokeStyle = `rgb(230, 200, 200)`
+  ctx.strokeStyle = `hsl(0, 35%, 80%)`
   ctx.stroke()
+  ctx.font = '8px Verdana'
+  ctx.textAlign = 'end'
+  ctx.fillStyle = `hsl(0, 0%, 25%)`
+  ctx.fillText('10ms', canvas.width, unit * range / 2 - 0.5)
 
   ctx.beginPath()
   ctx.moveTo(0, 0)
   ctx.lineTo(canvas.width, 0)
   ctx.lineWidth = 1
-  ctx.strokeStyle = `rgb(200, 200, 200)`
+  ctx.strokeStyle = `hsl(0, 0%, 75%)`
   ctx.stroke()
 
   data[device].samples.forEach((ntrvl) => {
@@ -99,7 +103,7 @@ const drawChart = (device) => {
     const pos = charts[device].drawCount - offset
     if (pos >= 0) {
       ntrvl = ntrvl * unit
-      ctx.fillStyle = `rgb(150, 150, 150)`
+      ctx.fillStyle = `hsl(0, 0%, 60%)`
       ctx.fillRect(2 + pos * 4, 200 - ntrvl, 2, ntrvl)
     }
   })
@@ -154,12 +158,10 @@ document.addEventListener('keyup', function(e) {
 //gamepad
 let gp = null
 window.addEventListener("gamepadconnected", (e) => {
-  if (charts.gp.active) {
-    logs.gp.innerText = `
-      ${e.gamepad.id}`
+  logs.gp.innerText = `
+    ${e.gamepad.id}`
 
-    gp = navigator.getGamepads()[e.gamepad.index]
-  }
+  gp = navigator.getGamepads()[e.gamepad.index]
 })
 
 
