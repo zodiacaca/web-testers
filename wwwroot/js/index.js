@@ -10,6 +10,8 @@ const charts = {
   max: 200,
   range: 20
 }
+const logs = {
+}
 devices.forEach((dvc) => {
   data[dvc] = {}
   data[dvc]["samples"] = []
@@ -28,12 +30,8 @@ devices.forEach((dvc) => {
       charts[dvc].button.textContent = "Start"
     }
   })
+  logs[dvc] = document.querySelector(`#screen-log-${dvc}`)
 })
-const logs = {
-  mouse: document.querySelector('#screen-log-mouse'),
-  kb: document.querySelector('#screen-log-keyboard'),
-  gp: document.querySelector('#screen-log-gamepad')
-}
 
 const drawChart = (device) => {
   const canvas = charts[device].canvas
