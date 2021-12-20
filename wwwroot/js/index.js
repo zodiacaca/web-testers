@@ -3,7 +3,6 @@
 
 // Write your JavaScript code.
 
-const devices = ['mouse', 'kb', 'gp']
 // data
 const data = {
   mouse: {
