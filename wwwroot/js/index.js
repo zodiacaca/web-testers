@@ -162,21 +162,24 @@ window.addEventListener("gamepadconnected", (e) => {
     ${e.gamepad.id}`
 
   gp = navigator.getGamepads()[e.gamepad.index]
+  console.log(gp)
 })
 
-
-// animation.addEventListener('animationstart', () => {
-
-// })
-
-// animation.addEventListener('animationiteration', () => {
-
-// })
-
-// animation.addEventListener('animationend', () => {
-
-// })
-
-// animation.addEventListener('animationcancel', () => {
-
-// })
+let sum = 0
+let lastSum = 0
+animation.addEventListener('animationiteration', () => {
+  if (gp) {
+    sum = 0
+    gp.axes.forEach((axe) => {
+      sum += axe
+    })
+    if (lastSum != sum) {
+      const interval = performance.now() - data.gp.timeStamp
+      if (interval < 2000) {
+        data.gp.samples.push(interval)
+      }
+    }
+    lastSum = sum
+    data.gp.timeStamp = performance.now()
+  }
+})
