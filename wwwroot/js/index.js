@@ -5,45 +5,20 @@
 
 // data
 const data = {
-  mouse: {
-    samples: [],
-    timeStamp: performance.now()
-  },
-  kb: {
-    samples: [],
-    timeStamp: performance.now()
-  },
-  gp: {
-    samples: [],
-    timeStamp: performance.now()
-  }
 }
 const charts = {
   max: 200,
-  range: 20,
-  mouse: {
-    drawCount: 0,
-    button: document.querySelector('#button-mouse'),
-    active: false,
-    canvas: document.querySelector('#chart-mouse'),
-    context: document.querySelector('#chart-mouse').getContext('2d')
-  },
-  kb: {
-    drawCount: 0,
-    button: document.querySelector('#button-keyboard'),
-    active: false,
-    canvas: document.querySelector('#chart-keyboard'),
-    context: document.querySelector('#chart-keyboard').getContext('2d')
-  },
-  gp: {
-    drawCount: 0,
-    button: document.querySelector('#button-gamepad'),
-    active: false,
-    canvas: document.querySelector('#chart-gamepad'),
-    context: document.querySelector('#chart-gamepad').getContext('2d')
-  }
+  range: 20
 }
 devices.forEach((dvc) => {
+  data[dvc] = {}
+  data[dvc]["samples"] = []
+  data[dvc]["timeStamp"] = performance.now()
+  charts[dvc] = {}
+  charts[dvc]["button"] = document.querySelector(`#button-${dvc}`)
+  charts[dvc]["active"] = false
+  charts[dvc]["canvas"] = document.querySelector(`#chart-${dvc}`)
+  charts[dvc]["context"] = charts[dvc]["canvas"].getContext('2d')
   charts[dvc].button.addEventListener('click', function(e) {
     charts[dvc].button.classList.toggle('active')
     charts[dvc].active = charts[dvc].button.classList.contains('active')
@@ -116,69 +91,3 @@ function draw(timeStamp) {
   window.requestAnimationFrame(draw)
 }
 window.requestAnimationFrame(draw)
-
-// mouse
-document.addEventListener('mousemove', function(e) {
-  if (charts.mouse.active) {
-    const interval = performance.now() - data.mouse.timeStamp
-    if (interval < 2000) {
-      data.mouse.samples.push(interval)
-    }
-    logs.mouse.innerText = `
-      Screen X/Y: ${e.screenX}, ${e.screenY}
-      Client X/Y: ${e.clientX}, ${e.clientY}
-      Last interval: ${interval}`
-
-    data.mouse.timeStamp = performance.now()
-  }
-})
-
-//keyboard
-// document.addEventListener('keydown', function(e) {
-//   logs.kb.innerText = `
-//     Last interval: ${performance.now() - data.kb.timeStamp}`
-
-//   data.kb.timeStamp = performance.now()
-// })
-
-document.addEventListener('keyup', function(e) {
-  if (charts.kb.active) {
-    const interval = performance.now() - data.kb.timeStamp
-    if (interval < 2000) {
-      data.kb.samples.push(interval)
-    }
-    logs.kb.innerText = `
-      Last interval: ${interval}`
-
-    data.kb.timeStamp = performance.now()
-  }
-})
-
-//gamepad
-let gp = null
-window.addEventListener("gamepadconnected", (e) => {
-  logs.gp.innerText = `
-    ${e.gamepad.id}`
-
-  gp = navigator.getGamepads()[e.gamepad.index]
-  console.log(gp)
-})
-
-let sum = 0
-let lastSum = 0
-animation.addEventListener('animationiteration', () => {
-  if (gp) {
-    sum = 0
-    gp.axes.forEach((axe) => {
-      sum += axe
-    })
-    if (lastSum != sum) {
-      const interval = performance.now() - data.gp.timeStamp
-      if (interval < 2000) {
-        data.gp.samples.push(interval)
-      }
-    }
-    lastSum = sum
-    data.gp.timeStamp = performance.now()
-  }
-})
