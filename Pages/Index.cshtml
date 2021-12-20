@@ -1,17 +1,5 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Latency Tester";
 }
-
-<div class="screen-log-area">
-    <p class="screen-log" id="screen-log-mouse"><br>Screen X/Y: 0, 0<br>Client X/Y: 0, 0<br>Last interval: 0</p>
-    <p class="screen-log" id="screen-log-keyboard"><br>Last duration: 0</p>
-    <p class="screen-log" id="screen-log-gamepad"><br>null<br>Last interval: 0</p>
-</div>
-<button id="button-mouse">Start</button>
-<canvas id="chart-mouse" width="802" height="200"></canvas>
-<button id="button-keyboard">Start</button>
-<canvas id="chart-keyboard" width="802" height="200"></canvas>
-<button id="button-gamepad">Start</button>
-<canvas id="chart-gamepad" width="802" height="200"></canvas>

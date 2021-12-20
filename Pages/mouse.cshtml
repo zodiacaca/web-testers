@@ -1,0 +1,16 @@
+﻿@page
+@model IndexModel
+@{
+  ViewData["Title"] = "Latency Tester - Mouse";
+}
+
+<div class="screen-log-area">
+  <p class="screen-log" id="screen-log-mouse"><br>Screen X/Y: 0, 0<br>Client X/Y: 0, 0<br>Last interval: 0</p>
+</div>
+<button id="button-mouse">Start</button>
+<canvas id="chart-mouse" width="802" height="200"></canvas>
+
+@section Scripts
+{
+  <script src="~/js/mouse.js"></script>
+}

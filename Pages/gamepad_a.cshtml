@@ -1,0 +1,16 @@
+﻿@page
+@model IndexModel
+@{
+  ViewData["Title"] = "Latency Tester - Gamepad (A)";
+}
+
+<div class="screen-log-area">
+  <p class="screen-log" id="screen-log-gamepad_a"><br>null<br>Last interval: 0</p>
+</div>
+<button id="button-gamepad">Start</button>
+<canvas id="chart-gamepad" width="802" height="200"></canvas>
+
+@section Scripts
+{
+  <script src="~/js/gamepad_a.js"></script>
+}

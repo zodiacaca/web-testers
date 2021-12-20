@@ -1,0 +1,16 @@
+﻿@page
+@model IndexModel
+@{
+  ViewData["Title"] = "Latency Tester - Keyboard";
+}
+
+<div class="screen-log-area">
+  <p class="screen-log" id="screen-log-keyboard"><br>Last duration: 0</p>
+</div>
+<button id="button-keyboard">Start</button>
+<canvas id="chart-keyboard" width="802" height="200"></canvas>
+
+@section Scripts
+{
+  <script src="~/js/keyboard.js"></script>
+}

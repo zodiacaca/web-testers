@@ -24,7 +24,6 @@ body {
   font-family: Geneva, Tahoma, sans-serif;
   font-size: 1.2rem;
   font-weight: 100;
-  color: hsl(0, 0%, 50%);
   position: relative;
   top: 60%;
   margin-left: 4rem;
@@ -33,12 +32,18 @@ body {
 
 .nav-main-item {
   cursor: default;
+  color: hsl(0, 0%, 50%);
+  text-decoration: none;
   display: block;
   position: relative;
   margin-top: -1px;
   padding: 1rem 2.5rem;
   border-top: 1px solid hsl(0, 0%, 25%);
   border-bottom: 1px solid hsl(0, 0%, 25%);
+}
+
+.nav-main-item:visited {
+  color: hsl(0, 0%, 50%);
 }
 
 .container {
