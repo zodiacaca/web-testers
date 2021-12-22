@@ -91,5 +91,5 @@ canvas {
 }
 @keyframes zero_time_animation {
   0% { color: hsl(0, 0%, 0%); }
-  100% { color: hsl(0, 0%, 0%); }
+  100% { color: hsl(0, 0%, 1%); }
 }

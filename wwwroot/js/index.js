@@ -58,10 +58,6 @@ const drawChart = (device) => {
   ctx.lineWidth = 1
   ctx.strokeStyle = `hsl(0, 35%, 80%)`
   ctx.stroke()
-  ctx.font = '8px Verdana'
-  ctx.textAlign = 'end'
-  ctx.fillStyle = `hsl(0, 0%, 25%)`
-  ctx.fillText('10ms', canvas.width, unit * range / 2 - 0.5)
 
   ctx.beginPath()
   ctx.moveTo(0, 0)
@@ -79,6 +75,11 @@ const drawChart = (device) => {
       ctx.fillRect(2 + pos * 4, 200 - ntrvl, 2, ntrvl)
     }
   })
+
+  ctx.font = '8px Verdana'
+  ctx.textAlign = 'end'
+  ctx.fillStyle = `hsl(0, 0%, 25%)`
+  ctx.fillText('10ms', canvas.width, unit * range / 2 - 0.5)
 }
 
 function draw(timeStamp) {
