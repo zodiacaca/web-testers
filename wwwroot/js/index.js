@@ -3,7 +3,6 @@
 
 // Write your JavaScript code.
 
-// data
 const data = {
 }
 const charts = {
@@ -12,26 +11,28 @@ const charts = {
 }
 const logs = {
 }
-devices.forEach((dvc) => {
-  data[dvc] = {}
-  data[dvc]["samples"] = []
-  data[dvc]["timeStamp"] = performance.now()
-  charts[dvc] = {}
-  charts[dvc]["button"] = document.querySelector(`#button-${dvc}`)
-  charts[dvc]["active"] = false
-  charts[dvc]["canvas"] = document.querySelector(`#chart-${dvc}`)
-  charts[dvc]["context"] = charts[dvc]["canvas"].getContext('2d')
-  charts[dvc].button.addEventListener('click', function(e) {
-    charts[dvc].button.classList.toggle('active')
-    charts[dvc].active = charts[dvc].button.classList.contains('active')
-    if (charts[dvc].active) {
-      charts[dvc].button.textContent = "Stop"
-    } else {
-      charts[dvc].button.textContent = "Start"
-    }
+if (typeof devices !== 'undefined' && Array.isArray(devices)) {
+  devices.forEach((dvc) => {
+    data[dvc] = {}
+    data[dvc]["samples"] = []
+    data[dvc]["timeStamp"] = performance.now()
+    charts[dvc] = {}
+    charts[dvc]["button"] = document.querySelector(`#button-${dvc}`)
+    charts[dvc]["active"] = false
+    charts[dvc]["canvas"] = document.querySelector(`#chart-${dvc}`)
+    charts[dvc]["context"] = charts[dvc]["canvas"].getContext('2d')
+    charts[dvc].button.addEventListener('click', function(e) {
+      charts[dvc].button.classList.toggle('active')
+      charts[dvc].active = charts[dvc].button.classList.contains('active')
+      if (charts[dvc].active) {
+        charts[dvc].button.textContent = "Stop"
+      } else {
+        charts[dvc].button.textContent = "Start"
+      }
+    })
+    logs[dvc] = document.querySelector(`#screen-log-${dvc}`)
   })
-  logs[dvc] = document.querySelector(`#screen-log-${dvc}`)
-})
+}
 
 const drawChart = (device) => {
   const canvas = charts[device].canvas

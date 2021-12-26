@@ -90,6 +90,6 @@ canvas {
   animation: 1ms ease 0s infinite zero_time_animation;
 }
 @keyframes zero_time_animation {
-  0% { color: hsl(0, 0%, 0%); }
-  100% { color: hsl(0, 0%, 1%); }
+  0% { transform: translateX(1px) scaleX(2); }
+  100% { transform: translateX(0) scaleX(1); }
 }
