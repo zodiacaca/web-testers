@@ -82,14 +82,3 @@ canvas {
   margin-top: 2rem;
   margin-bottom: 1rem;
 }
-
-#button-gp_a {
-  animation: 1ms infinite zero_time_animation;
-}
-#button-gp_b {
-  animation: 1ms infinite zero_time_animation;
-}
-@keyframes zero_time_animation {
-  0% { transform: translateX(1px) scaleX(2); }
-  100% { transform: translateX(0) scaleX(1); }
-}
