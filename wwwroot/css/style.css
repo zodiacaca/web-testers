@@ -84,10 +84,10 @@ canvas {
 }
 
 #button-gp_a {
-  animation: 1ms ease 0s infinite zero_time_animation;
+  animation: 1ms infinite zero_time_animation;
 }
 #button-gp_b {
-  animation: 1ms ease 0s infinite zero_time_animation;
+  animation: 1ms infinite zero_time_animation;
 }
 @keyframes zero_time_animation {
   0% { transform: translateX(1px) scaleX(2); }

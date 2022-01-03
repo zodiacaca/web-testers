@@ -11,11 +11,12 @@ const charts = {
 }
 const logs = {
 }
+const drawDelay = 500
 if (typeof devices !== 'undefined' && Array.isArray(devices)) {
   devices.forEach((dvc) => {
     data[dvc] = {}
     data[dvc]["samples"] = []
-    data[dvc]["timeStamp"] = performance.now()
+    data[dvc]["timeStamp"] = performance.now() - drawDelay
     charts[dvc] = {}
     charts[dvc]["button"] = document.querySelector(`#button-${dvc}`)
     charts[dvc]["active"] = false
@@ -83,11 +84,10 @@ const drawChart = (device) => {
   ctx.fillText('10ms', canvas.width, unit * range / 2 - 0.5)
 }
 
-function draw(timeStamp) {
+setInterval(() => {
   devices.forEach((dvc) => {
-    drawChart(dvc)
+    if (performance.now() - data[dvc].timeStamp > drawDelay) {
+      drawChart(dvc)
+    }
   })
-
-  window.requestAnimationFrame(draw)
-}
-window.requestAnimationFrame(draw)
+}, 1000 / 60)
