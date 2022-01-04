@@ -84,18 +84,21 @@ const drawChart = (device) => {
   ctx.fillStyle = `hsl(0, 0%, 25%)`
   ctx.fillText('10ms', canvas.width, unit * range / 2 - 0.5 - 2)
 
+  const darken = Math.ceil((performance.now() - data[device].timeStamp) / 10, 100)
   if (data[device].average > 0) {
     const h = canvas.height - (unit * Math.round(data[device].average) - 0.5)
     ctx.beginPath()
     ctx.moveTo(0, h)
     ctx.lineTo(canvas.width, h)
     ctx.lineWidth = 1
-    ctx.strokeStyle = `hsl(0, 0%, 20%)`
+    ctx.strokeStyle = `hsl(0, 0%, ${120 - darken}%)`
     ctx.stroke()
 
     ctx.font = '10px Verdana'
     ctx.textAlign = 'end'
-    ctx.fillStyle = `hsl(0, 0%, 20%)`
+    ctx.strokeStyle = `hsl(0, 0%, 90%)`
+    ctx.strokeText(`${Math.round(data[device].average)}ms`, canvas.width, h - 2)
+    ctx.fillStyle = `hsl(0, 0%, ${120 - darken}%)`
     ctx.fillText(`${Math.round(data[device].average)}ms`, canvas.width, h - 2)
   }
 }
