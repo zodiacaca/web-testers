@@ -17,6 +17,7 @@ if (typeof devices !== 'undefined' && Array.isArray(devices)) {
     data[dvc] = {}
     data[dvc]["samples"] = []
     data[dvc]["timeStamp"] = performance.now() - drawDelay
+    data[dvc]["average"] = 0
     charts[dvc] = {}
     charts[dvc]["button"] = document.querySelector(`#button-${dvc}`)
     charts[dvc]["active"] = false
@@ -81,12 +82,56 @@ const drawChart = (device) => {
   ctx.font = '8px Verdana'
   ctx.textAlign = 'end'
   ctx.fillStyle = `hsl(0, 0%, 25%)`
-  ctx.fillText('10ms', canvas.width, unit * range / 2 - 0.5)
+  ctx.fillText('10ms', canvas.width, unit * range / 2 - 0.5 - 2)
+
+  if (data[device].average > 0) {
+    const h = canvas.height - (unit * Math.round(data[device].average) - 0.5)
+    ctx.beginPath()
+    ctx.moveTo(0, h)
+    ctx.lineTo(canvas.width, h)
+    ctx.lineWidth = 1
+    ctx.strokeStyle = `hsl(0, 0%, 20%)`
+    ctx.stroke()
+
+    ctx.font = '10px Verdana'
+    ctx.textAlign = 'end'
+    ctx.fillStyle = `hsl(0, 0%, 20%)`
+    ctx.fillText(`${Math.round(data[device].average)}ms`, canvas.width, h - 2)
+  }
+}
+
+const calcAvg = (dvc) => {
+  let avg = 0
+  let sum = 0
+  let count = 1
+  const len = data[dvc].samples.length
+  if (len > 0) {
+    count = len > 200 ? 200 : len
+    for (let i = len - 1; len - i <= 200 && i >= 0; i--) {
+      sum += data[dvc].samples[i]
+    }
+  }
+  avg = sum / count
+  if (len > 0) {
+    sum = 0
+    count = len > 200 ? 200 : len
+    for (let i = len - 1; len - i <= 200 && i >= 0; i--) {
+      if (data[dvc].samples[i] - avg < avg / 2) {
+        sum += data[dvc].samples[i]
+      } else {
+        count--
+      }
+    }
+  }
+  avg = sum / count
+
+  return avg
 }
 
 setInterval(() => {
   devices.forEach((dvc) => {
     if (performance.now() - data[dvc].timeStamp > drawDelay) {
+      data[dvc].average = calcAvg(dvc)
       drawChart(dvc)
     }
   })
