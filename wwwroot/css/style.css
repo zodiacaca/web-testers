@@ -73,12 +73,42 @@ body {
 }
 
 button {
+  font-family: Tahoma, sans-serif;
+  color: hsl(0, 0%, 30%);
   width: 5rem;
   height: 2rem;
+  border: 0.125rem hsl(0, 0%, 80%) solid;
+  border-radius: 0.25rem;
+}
+
+button.active {
+  background: linear-gradient(0deg, hsl(10, 25%, 70%), hsl(10, 0%, 80%));
+  background-size: 200% 200%;
+  animation: gradient 2.5s ease infinite;
+}
+
+@keyframes gradient {
+  0% {
+      background-position: 50% 50%;
+  }
+  50% {
+      background-position: 50% 100%;
+  }
+  100% {
+      background-position: 50% 50%;
+  }
 }
 
 canvas {
   display: block;
   margin-top: 2rem;
   margin-bottom: 1rem;
+}
+
+#button-gp {
+  animation: 1ms infinite zero_time_animation;
+}
+@keyframes zero_time_animation {
+  0% { transform: scaleX(2); }
+  100% { transform: scaleX(1); }
 }
