@@ -101,3 +101,18 @@ canvas {
   0% { transform: scaleX(2); }
   100% { transform: scaleX(1); }
 }
+
+.notes {
+  margin: 4rem 0;
+}
+
+ul:before{
+  content:attr(list-title);
+  font-size: 105%;
+  font-weight: bold;
+  margin-left: -2rem;
+}
+
+.note {
+  padding: 0.25rem 0;
+}
