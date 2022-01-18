@@ -131,11 +131,13 @@ const calcAvg = (dvc) => {
   return avg
 }
 
-setInterval(() => {
-  devices.forEach((dvc) => {
-    if (performance.now() - data[dvc].timeStamp > drawDelay) {
-      data[dvc].average = calcAvg(dvc)
-      drawChart(dvc)
-    }
-  })
-}, 1000 / 60)
+if (typeof devices !== 'undefined' && Array.isArray(devices)) {
+  setInterval(() => {
+    devices.forEach((dvc) => {
+      if (performance.now() - data[dvc].timeStamp > drawDelay) {
+        data[dvc].average = calcAvg(dvc)
+        drawChart(dvc)
+      }
+    })
+  }, 1000 / 60)
+}
