@@ -20,9 +20,34 @@ namespace RazorPagesApp.Pages
 
         public void OnGet()
         {
+            string file = "./Pages/counter.xml";
+            if (System.IO.File.Exists(file))
+            {
+                Count(file);
+            }
+            else
+            {
+                DataSet ds = new DataSet("counter");
+
+                DataTable dt = new DataTable("count");
+
+                DataColumn column = new DataColumn("hits", System.Type.GetType("System.Int32"));
+                dt.Columns.Add(column);
+                DataRow row = dt.NewRow();
+                row["hits"] = 1;
+                dt.Rows.Add(row);
+
+                ds.Tables.Add(dt);
+
+                ds.WriteXml(file);
+            }
+        }
+
+        private void Count(string file)
+        {
             DataSet ds = new DataSet();
 
-            ds.ReadXml("./Pages/counter.xml");
+            ds.ReadXml(file);
 
             int hits = Int32.Parse(ds.Tables[0].Rows[0]["hits"].ToString());
 
@@ -30,7 +55,7 @@ namespace RazorPagesApp.Pages
 
             ds.Tables[0].Rows[0]["hits"] = hits.ToString();
 
-            ds.WriteXml("./Pages/counter.xml");
+            ds.WriteXml(file);
         }
     }
 }
