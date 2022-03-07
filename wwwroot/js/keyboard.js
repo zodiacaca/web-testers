@@ -15,8 +15,14 @@ document.addEventListener('keyup', function(e) {
     if (interval < 200) {
       data.kb.samples.push(interval)
     }
+    const len = data.kb.samples.length
+    const intervals = []
+    for (let i = len - 1; i >= len - 5 && i >= 0; i--) {
+      intervals.push(data.kb.samples[i])
+    }
+    intervals.reverse()
     logs.kb.innerText = `
-      Last interval: ${interval}`
+      Last intervals: ${intervals}`
 
     data.kb.timeStamp = performance.now()
   }
