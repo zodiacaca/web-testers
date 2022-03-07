@@ -119,7 +119,7 @@ const calcAvg = (dvc) => {
     sum = 0
     count = len > 200 ? 200 : len
     for (let i = len - 1; len - i <= 200 && i >= 0; i--) {
-      if (data[dvc].samples[i] - avg < avg / 2) {
+      if (data[dvc].samples[i] - avg < avg / 3) {
         sum += data[dvc].samples[i]
       } else {
         count--

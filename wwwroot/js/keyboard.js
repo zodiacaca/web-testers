@@ -12,7 +12,7 @@ const devices = ['kb']
 document.addEventListener('keyup', function(e) {
   if (charts.kb.active) {
     const interval = performance.now() - data.kb.timeStamp
-    if (interval < 200) {
+    if (interval > 0 && interval < 200) {
       data.kb.samples.push(interval)
     }
     const len = data.kb.samples.length
