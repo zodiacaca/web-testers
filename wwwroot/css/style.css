@@ -42,8 +42,12 @@ body {
   border-bottom: 1px solid hsl(0, 0%, 25%);
 }
 
-.nav-main-item:visited {
+/* .nav-main-item:visited {
   color: hsl(0, 0%, 50%);
+} */
+
+.unaccessible {
+  color: hsl(0, 0%, 25%);
 }
 
 .container {
@@ -92,14 +96,6 @@ canvas {
   display: block;
   margin-top: 2rem;
   margin-bottom: 1rem;
-}
-
-#button-gp {
-  animation: 1ms infinite zero_time_animation;
-}
-@keyframes zero_time_animation {
-  0% { transform: scaleX(2); }
-  100% { transform: scaleX(1); }
 }
 
 .notes {

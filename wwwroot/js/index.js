@@ -141,3 +141,10 @@ if (typeof devices !== 'undefined' && Array.isArray(devices)) {
     })
   }, 1000 / 60)
 }
+
+
+const items = document.getElementsByClassName("nav-main-item")
+for (let i = 0; i <= 2; i += 2) {
+  items[i].classList.add("unaccessible")
+  items[i].setAttribute('href', "javascript:")
+}
