@@ -103,6 +103,28 @@ const drawChart = (device) => {
   }
 }
 
+const iterateWeighting = (dvc, len, sum, avg) => {
+  for (let i = 0; i <= 2; i++) {
+
+    let count = 1
+    if (len > 0) {
+      sum = 0
+      count = len > 200 ? 200 : len
+      for (let i = len - 1; len - i <= 200 && i >= 0; i--) {
+        if (data[dvc].samples[i] - avg < avg / 4 && data[dvc].samples[i] > 0) {
+          sum += data[dvc].samples[i]
+        } else {
+          count--
+        }
+      }
+    }
+    avg = sum / count
+
+  }
+
+  return avg
+}
+
 const calcAvg = (dvc) => {
   let avg = 0
   let sum = 0
@@ -115,20 +137,8 @@ const calcAvg = (dvc) => {
     }
   }
   avg = sum / count
-  if (len > 0) {
-    sum = 0
-    count = len > 200 ? 200 : len
-    for (let i = len - 1; len - i <= 200 && i >= 0; i--) {
-      if (data[dvc].samples[i] - avg < avg / 3) {
-        sum += data[dvc].samples[i]
-      } else {
-        count--
-      }
-    }
-  }
-  avg = sum / count
 
-  return avg
+  return iterateWeighting(dvc, len, sum, avg)
 }
 
 if (typeof devices !== 'undefined' && Array.isArray(devices)) {
