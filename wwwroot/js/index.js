@@ -133,7 +133,9 @@ const calcAvg = (dvc) => {
   if (len > 0) {
     count = len > 200 ? 200 : len
     for (let i = len - 1; len - i <= 200 && i >= 0; i--) {
-      sum += data[dvc].samples[i]
+      if (data[dvc].samples[i] > 0) {
+        sum += data[dvc].samples[i]
+      }
     }
   }
   avg = sum / count
